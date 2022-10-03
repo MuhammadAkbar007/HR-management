@@ -26,7 +26,8 @@ public class AuthController {
     @PostMapping("/login")
     public HttpEntity<?> logIntoSystem(@RequestBody LoginDto loginDto) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
             String token = jwtProvider.generateToken(loginDto.getEmail());
             return ResponseEntity.ok(token);
         } catch (BadCredentialsException exception) {
